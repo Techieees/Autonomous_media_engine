@@ -1,0 +1,14 @@
+---
+description: Security and platform-policy restrictions
+alwaysApply: true
+---
+
+# Security
+
+- Read secrets from environment / runtime config only.
+- Production must fail safely if a required platform secret is missing.
+- OAuth: validate state, protect callbacks, least privilege scopes.
+- Mask secrets in logs and API error payloads.
+- Validate object-storage paths. No path traversal.
+- Human-only: CAPTCHA, MFA, OAuth consent, KYC, payout, legal acceptance, platform-required post confirmation.
+- AME must never autonomously raise hard caps, buy services, change bank details, disable safety, or create fake engagement.

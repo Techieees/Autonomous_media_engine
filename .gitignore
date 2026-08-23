@@ -1,0 +1,80 @@
+# Secrets
+.env
+.env.local
+.env.*.local
+!.env.example
+dashboard/.env
+*.pem
+*.key
+credentials.json
+client_secret*.json
+token.json
+tokens/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+.env/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+dist/
+build/
+
+# Node
+node_modules/
+.next/
+out/
+dashboard/.next/
+dashboard/out/
+
+# Media / runtime
+/data/
+/backend/data/
+/storage/
+media/output/
+*.mp4
+*.wav
+*.mp3
+*.srt
+!fixtures/**/*.srt
+!fixtures/**/*.wav
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Native Windows runtime
+.ame/
+
+# Logs
+*.log
+logs/
+
+# Agent scratch
+_*.txt
+*.tmp
+_prompts/
+backend/ame/cli/last_acceptance.json
+backend/ame/cli/last_autonomy.json
+backend/ame/cli/last_bootstrap.json
+
+# Alembic / local SQLite fallback
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+**/last_acceptance.json

@@ -1,0 +1,24 @@
+---
+description: Non-negotiable AME architecture and safety rules
+alwaysApply: true
+---
+
+# AME Core
+
+This repository is isolated. Do not touch sibling repos, Carbon/CTS platforms, or owner production systems.
+
+Authoritative contracts live in `backend/ame/contracts/`. Do not invent parallel schemas.
+
+PostgreSQL is the system of record. Agents persist tasks, decisions, events, and results. Prompt history is not memory.
+
+Content lifecycle is explicit. Never infer critical state from missing fields.
+
+Dry-run uses the real workflow and labels synthetic records `simulation = true`. Production publishers refuse simulated content.
+
+LLM output is data. Validate with Pydantic. Never execute model output.
+
+No credentials in Git. Never log tokens, cookies, passwords, or OAuth secrets.
+
+Director cannot raise `DAILY_AI_SPEND_LIMIT`, `DAILY_MEDIA_SPEND_LIMIT`, or `MAX_CONTENT_PER_DAY`.
+
+Official APIs only. No scraping authenticated pages, watermark removal, DRM bypass, fake engagement, or fabricated revenue/metrics.

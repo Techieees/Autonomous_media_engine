@@ -1,0 +1,100 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: ame
+      POSTGRES_PASSWORD: ame
+      POSTGRES_DB: ame
+    ports:
+      - "5432:5432"
+    volumes:
+      - ame_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ame -d ame"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.backend
+    command: ["uvicorn", "ame.api.main:app", "--host", "0.0.0.0", "--port", "8000"]
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql+asyncpg://ame:ame@postgres:5432/ame
+      DATABASE_URL_SYNC: postgresql+psycopg://ame:ame@postgres:5432/ame
+      REDIS_URL: redis://redis:6379/0
+      STORAGE_LOCAL_ROOT: /data/storage
+    ports:
+      - "8000:8000"
+    volumes:
+      - ame_storage:/data/storage
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  worker:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.backend
+    command: ["python", "-m", "ame.jobs.worker"]
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql+asyncpg://ame:ame@postgres:5432/ame
+      DATABASE_URL_SYNC: postgresql+psycopg://ame:ame@postgres:5432/ame
+      REDIS_URL: redis://redis:6379/0
+      STORAGE_LOCAL_ROOT: /data/storage
+    volumes:
+      - ame_storage:/data/storage
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  scheduler:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.backend
+    command: ["python", "-m", "ame.jobs.scheduler"]
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql+asyncpg://ame:ame@postgres:5432/ame
+      DATABASE_URL_SYNC: postgresql+psycopg://ame:ame@postgres:5432/ame
+      REDIS_URL: redis://redis:6379/0
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  dashboard:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.dashboard
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+
+volumes:
+  ame_pg:
+  ame_storage:

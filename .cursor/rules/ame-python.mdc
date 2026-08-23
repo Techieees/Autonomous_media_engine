@@ -1,0 +1,16 @@
+---
+description: Python backend conventions for AME
+globs: backend/**/*.py
+alwaysApply: false
+---
+
+# Python
+
+- Python 3.12+, typed, Pydantic v2 models for agent I/O.
+- SQLAlchemy 2.x mapped models in `backend/ame/db/models/`.
+- New tables need Alembic migrations. Use UUIDs and timezone-aware UTC timestamps.
+- Keep modules focused. No 4,000-line service files.
+- Structured JSON logs with `correlation_id`, `workflow_id`, `agent_run_id`, `content_id` when available.
+- Publishers implement `PublisherAdapter` from `ame.publishers.base`.
+- Agents implement `ame.agents.base.Agent`.
+- Cost events must be written for every paid provider call.

@@ -1,0 +1,15 @@
+---
+description: Dashboard conventions for AME
+globs: dashboard/**/*.{ts,tsx}
+alwaysApply: false
+---
+
+# Dashboard
+
+- Next.js App Router, TypeScript, Tailwind.
+- Desktop-first, operational, no generic AI-SaaS ornament.
+- Read live API state. Do not hardcode fake KPIs.
+- Label `simulation = true` records as simulation.
+- Paginate lists. Do not load lifetime analytics in one request.
+- Human Actions and Bootstrap Center must distinguish machine work from owner-only work.
+- Never ask for passwords or raw tokens in the UI. OAuth redirects only.

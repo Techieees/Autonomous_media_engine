@@ -1,0 +1,38 @@
+[
+  {
+    "source": "hacker_news",
+    "external_id": "fixture-humanoid-robotics",
+    "topic": "Humanoid robotics",
+    "title": "Humanoid robots move from demo to factory floor",
+    "url": "https://news.ycombinator.com/item?id=fixture1",
+    "views": 18400,
+    "likes": 920,
+    "comments": 210,
+    "velocity": 86.4,
+    "engagement_rate": 0.061,
+    "age_hours": 4.0,
+    "cross_platform_count": 2,
+    "source_authority": 0.8,
+    "risk_score": 0.08,
+    "trend_score": 0.0,
+    "metadata": { "fixture": true }
+  },
+  {
+    "source": "rss",
+    "external_id": "fixture-fusion-power",
+    "topic": "Fusion energy",
+    "title": "Private fusion firms publish new confinement results",
+    "url": "https://example.com/fusion",
+    "views": 6200,
+    "likes": 410,
+    "comments": 88,
+    "velocity": 41.2,
+    "engagement_rate": 0.08,
+    "age_hours": 7.5,
+    "cross_platform_count": 1,
+    "source_authority": 0.7,
+    "risk_score": 0.12,
+    "trend_score": 0.0,
+    "metadata": { "fixture": true }
+  }
+]
